@@ -18,7 +18,17 @@
     </tbody>
 </table>
 <ul class="pagination justify-content-center">
-    <li class="page-item"><a class="page-link" href="?page={{previous}}">Previous</a></li>
-    <li class="page-item"><a class="page-link" href="?page={{next}}">Next</a></li>
+    {{#checkPrevious}}
+        <li class="page-item"><a class="page-link" href="?page={{previous}}">Previous</a> </li>
+    {{/checkPrevious}}
+    {{^checkPrevious}}
+        <li class="page-item disabled"><a class="page-link" href="?page={{previous}}">Previous</a> </li>
+    {{/checkPrevious}}
+    {{#checkNext}}
+        <li class="page-item"><a class="page-link" href="?page={{next}}">Next</a> </li>
+    {{/checkNext}}
+    {{^checkNext}}
+        <li class="page-item disables"><a class="page-link" href="?page={{next}}">Next</a> </li>
+    {{/checkNext}}
 </ul>
 {{>layouts/footer}}

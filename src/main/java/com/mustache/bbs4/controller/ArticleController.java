@@ -18,9 +18,11 @@ import java.util.Optional;
 @RequestMapping("/articles")
 @Slf4j
 public class ArticleController {
-    ArticleRepository articleRepository;
+    private final ArticleRepository articleRepository;
+    //private final CommentRepository commentRepository;
     public ArticleController(ArticleRepository articleRepository){
         this.articleRepository=articleRepository;
+        //this.commentRepository = commentRepository;
     }
     @GetMapping("/")
     public String home(){
@@ -28,7 +30,7 @@ public class ArticleController {
     }
     @GetMapping("/new")
     public String createPage(){
-        return "new";
+        return "articles/new";
     }
     @PostMapping("")
     public String articles(ArticleDto articleDto){
@@ -42,24 +44,25 @@ public class ArticleController {
         Optional<Article> optArticle = articleRepository.findById(id);
         if (!optArticle.isEmpty()) {
             model.addAttribute("article", optArticle.get());
-            return "show";
+            //model.addAttribute("comments", optArticle.get().getComments());
+            return "articles/show";
         }
-        return "error";
+        return "articles/error";
     }
     @GetMapping("/list")
     public String findAll(Model model){
         List<Article> list=articleRepository.findAll();
         model.addAttribute("articles", list);
-        return "list";
+        return "articles/list";
     }
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable Long id, Model model){
         Optional<Article> optArticle = articleRepository.findById(id);
         if (!optArticle.isEmpty()) {
             model.addAttribute("article", optArticle.get());
-            return "edit";
+            return "articles/edit";
         }
-        return "error";
+        return "articles/error";
     }
     @PostMapping("/{id}/update")
     public String updatePost(@PathVariable Long id, ArticleDto articleDto){

@@ -24,7 +24,7 @@ public class ArticleController {
         this.articleRepository=articleRepository;
         //this.commentRepository = commentRepository;
     }
-    @GetMapping("/")
+    @GetMapping("")
     public String home(){
         return "redirect:/articles/list";
     }

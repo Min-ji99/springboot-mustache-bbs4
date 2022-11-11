@@ -1,3 +1,16 @@
 {{>layouts/header}}
-    병원 정보 보여주는 화면입니다.
+<div class="container-md mt-2">
+    {{#hospital}}
+        <div class="card" style="width: 30rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{hospitalName}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{roadNameAddress}}</h6>
+                <p class="card-text">입원실 수 : {{patientRoomCount}}</p>
+                <p class="card-text">병상 수 : {{totalNumberOfBeds}}</p>
+                <p class="card-text">총 면적 : {{totalAreaSize}}</p>
+            </div>
+        </div>
+        <a href="/hospitals" class="btn btn-secondary">뒤로</a>
+    {{/hospital}}
+</div>
 {{>layouts/footer}}

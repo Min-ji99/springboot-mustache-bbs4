@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/hospitals")
@@ -37,6 +38,11 @@ public class HospitalController {
     }
     @GetMapping("/{id}")
     public String selectHospital(@PathVariable Integer id, Model model){
-        return "hospitals/show";
+        Optional<Hospital> hospital=hospitalRepository.findById(id);
+        if(!hospital.isEmpty()){
+            model.addAttribute("hospital", hospital.get());
+            return "hospitals/show";
+        }
+        return "error";
     }
 }

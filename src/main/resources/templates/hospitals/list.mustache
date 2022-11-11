@@ -3,15 +3,15 @@
     <thead>
     <tr>
         <th scope="col">Id</th>
-        <th scope="col">Title</th>
-        <th scope="col">Content</th>
+        <th scope="col">병원 이름</th>
+        <th scope="col">병원 주소</th>
     </tr>
     </thead>
     <tbody>
     {{#hospitals}}
         <tr>
             <th scope="row">{{id}}</th>
-            <td>{{hospitalName}}</td>
+            <td><a href="/hospitals/{{id}}">{{hospitalName}}</td>
             <td>{{roadNameAddress}}</td>
         </tr>
     {{/hospitals}}

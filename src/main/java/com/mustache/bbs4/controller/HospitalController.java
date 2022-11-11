@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -33,5 +34,9 @@ public class HospitalController {
         model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
         model.addAttribute("next", pageable.next().getPageNumber());
         return "hospitals/list";
+    }
+    @GetMapping("/{id}")
+    public String selectHospital(@PathVariable Integer id, Model model){
+        return "hospitals/show";
     }
 }

@@ -62,4 +62,12 @@ class HospitalRepositoryTest {
             System.out.printf("%s %d\n", hospital.getHospitalName(), hospital.getTotalNumberOfBeds());
         }
     }
+
+    @Test
+    void findByPatientRoomCountBetweenOrderByPatientRoomCountDesc(){
+        List<Hospital> hospitals=hospitalRepository.findByPatientRoomCountBetweenOrderByPatientRoomCountDesc(1, 3);
+        for(var hospital : hospitals){
+            System.out.printf("%s %d\n", hospital.getHospitalName(), hospital.getPatientRoomCount());
+        }
+    }
 }

@@ -17,4 +17,20 @@ public class HospitalResponse {
     private Integer totalNumberOfBeds;
     private String businessTypeName;
     private Float totalAreaSize;
+    private String businessStatusName;
+
+    public HospitalResponse(Integer id, String roadNameAddress, String hospitalName, Integer patientRoomCount, Integer totalNumberOfBeds, String businessTypeName, Float totalAreaSize) {
+        this.id=id;
+        this.roadNameAddress=roadNameAddress;
+        this.hospitalName=hospitalName;
+        this.patientRoomCount=patientRoomCount;
+        this.totalNumberOfBeds=totalNumberOfBeds;
+        this.totalAreaSize=totalAreaSize;
+        this.businessTypeName=businessTypeName;
+    }
+
+    public void setBusinessStatusName(String businessStatusName) {
+        this.businessStatusName = businessStatusName;
+    }
+
 }

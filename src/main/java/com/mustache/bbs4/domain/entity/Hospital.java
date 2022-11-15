@@ -38,6 +38,7 @@ public class Hospital {
 
     @Column(name="business_type_name")
     private String businessTypeName;
+    private Integer businessStatusCode;
 
     public static HospitalResponse of(Hospital hospital) {
         return new HospitalResponse(hospital.getId(),

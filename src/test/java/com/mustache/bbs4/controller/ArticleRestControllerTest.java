@@ -29,19 +29,19 @@ class ArticleRestControllerTest {
     @DisplayName("1개의 Json 형태로 잘 나오는지")
     void JsonResponse() throws Exception{
         ArticleResponse articleResponse=ArticleResponse.builder()
-                .id(1)
+                .id((long)1)
                 .title("룰루")
                 .content("랄라")
                 .build();
 
-        given(articleService.getArticle(1))
+        given(articleService.getArticle((long)1))
                 .willReturn(articleResponse);
 
-        int articleId=1;
+        long articleId=1;
 
         String url=String.format("/api/v1/articles/%d", articleId);
         mockMvc.perform(get(url))
-                .andExpect(status().idOk())
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title").exists())
                 .andExpect(jsonPath("$.title").value("룰루"))
                 .andDo(print());

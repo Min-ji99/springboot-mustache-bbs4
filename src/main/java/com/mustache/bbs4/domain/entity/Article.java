@@ -1,7 +1,9 @@
 package com.mustache.bbs4.domain.entity;
 
+import com.mustache.bbs4.domain.dto.ArticleDto;
 import com.mustache.bbs4.domain.dto.ArticleResponse;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +11,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Builder
 @Getter
 @Entity
 @NoArgsConstructor
@@ -26,7 +29,7 @@ public class Article {
         this.content=content;
     }
 
-    public static ArticleResponse of(Article article){
-        return new ArticleResponse(article.getId(), article.getTitle(), article.getContent());
+    public static ArticleDto of(Article article){
+        return new ArticleDto(article.getId(), article.getTitle(), article.getContent());
     }
 }

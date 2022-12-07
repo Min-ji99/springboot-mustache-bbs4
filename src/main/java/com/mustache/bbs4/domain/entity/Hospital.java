@@ -3,10 +3,7 @@ package com.mustache.bbs4.domain.entity;
 import com.mustache.bbs4.domain.dto.HospitalResponse;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Getter

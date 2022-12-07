@@ -32,6 +32,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         if(authorizationHeader==null || !authorizationHeader.startsWith("Bearer ")){
             log.error("헤더를 가져오는 과정에서 오류 발생");
             filterChain.doFilter(request, response);
+            return;
         }
         String token;
         try{

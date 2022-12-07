@@ -29,12 +29,17 @@ public class UserService {
     }
 
     public String login(UserLoginRequest userLoginRequest) {
+        //username이 존재하지 않으면 예외처리
         User user=userRepository.findByUsername(userLoginRequest.getUsername())
                 .orElseThrow(()-> new AppException(ErrorCode.NOTFOUND_USER_NAME, String.format("username %s가 존재하지 않습니다.", userLoginRequest.getUsername())));
 
+        //로그인하려는 user의 암호와 입력한 암호가 다르면 예외처리
+        //matches() 메서드는 첫번째 파라미터는 입력한 값, 두번째는 암호화된 값을 전달
+        //순서 바뀌면 두 암호가 다르다고 판단함
         if(!encoder.matches(userLoginRequest.getPassword(), user.getPassword())){
             throw new AppException(ErrorCode.INVALID_PASSWORD, String.format("username 또는 password가 틀렸습니다."));
         }
+        //토큰 발급
         return JwtTokenUtil.createToken(user.getUsername(), secretKey, expireTimeMs);
     }
 
@@ -49,7 +54,9 @@ public class UserService {
                 .ifPresent(user->{
                     throw new AppException(ErrorCode.DUPLICATED_USER_NAME, String.format("이미 존재하는 %s입니다.", userJoinRequest.getUsername()));
                 });
+        //password 암호화
         String encodingPassword= encoder.encode(userJoinRequest.getPassword());
+        //암호화한 password로 Entity로 변경
         User user = userJoinRequest.toEntity(encodingPassword);
 
         User savedUser = userRepository.save(user);

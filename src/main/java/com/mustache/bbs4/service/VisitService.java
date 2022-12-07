@@ -2,6 +2,7 @@ package com.mustache.bbs4.service;
 
 import com.mustache.bbs4.domain.dto.VisitCreateRequest;
 import com.mustache.bbs4.domain.dto.VisitCreateResponse;
+import com.mustache.bbs4.domain.dto.VisitResponse;
 import com.mustache.bbs4.domain.entity.Hospital;
 import com.mustache.bbs4.domain.entity.User;
 import com.mustache.bbs4.domain.entity.Visit;
@@ -11,6 +12,9 @@ import com.mustache.bbs4.repository.HospitalRepository;
 import com.mustache.bbs4.repository.UserRepository;
 import com.mustache.bbs4.repository.VisitRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class VisitService {
@@ -37,5 +41,13 @@ public class VisitService {
                         .build();
         visitRepository.save(visit);
         return new VisitCreateResponse("등록이 성공적으로 완료되었습니다.");
+    }
+
+    public List<VisitResponse> getList() {
+        List<Visit> visits = visitRepository.findAll();
+        List<VisitResponse> visitResponses=visits.stream()
+                .map(visit->VisitResponse.of(visit)).collect(Collectors.toList());
+
+        return visitResponses;
     }
 }

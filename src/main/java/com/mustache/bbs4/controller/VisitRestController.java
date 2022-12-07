@@ -4,7 +4,9 @@ import com.mustache.bbs4.domain.dto.VisitCreateRequest;
 import com.mustache.bbs4.domain.dto.VisitCreateResponse;
 import com.mustache.bbs4.domain.dto.VisitResponse;
 import com.mustache.bbs4.service.VisitService;
+import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,8 +21,8 @@ public class VisitRestController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<VisitCreateResponse> create(@RequestBody VisitCreateRequest visitCreateRequest){
-        VisitCreateResponse visitCreateResponse=visitService.createVisit(visitCreateRequest, "minji");
+    public ResponseEntity<VisitCreateResponse> create(@RequestBody VisitCreateRequest visitCreateRequest, Authentication authentication){
+        VisitCreateResponse visitCreateResponse=visitService.createVisit(visitCreateRequest, authentication.getName());
         return ResponseEntity.ok().body(visitCreateResponse);
     }
     @GetMapping("")

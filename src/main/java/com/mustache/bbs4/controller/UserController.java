@@ -1,5 +1,7 @@
 package com.mustache.bbs4.controller;
 
+import com.mustache.bbs4.domain.dto.UserJoinRequest;
+import com.mustache.bbs4.domain.dto.UserJoinResponse;
 import com.mustache.bbs4.domain.dto.UserLoginRequest;
 import com.mustache.bbs4.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +18,11 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
-
+    @PostMapping("/join")
+    public ResponseEntity<UserJoinResponse> join(@RequestBody UserJoinRequest userJoinRequest){
+        UserJoinResponse userJoinResponse=userService.join(userJoinRequest);
+        return ResponseEntity.ok().body(userJoinResponse);
+    }
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody UserLoginRequest userLoginRequest){
         String token=userService.login(userLoginRequest);

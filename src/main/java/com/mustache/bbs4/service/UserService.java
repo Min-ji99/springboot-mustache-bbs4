@@ -1,7 +1,10 @@
 package com.mustache.bbs4.service;
 
+import com.mustache.bbs4.domain.dto.UserJoinRequest;
+import com.mustache.bbs4.domain.dto.UserJoinResponse;
 import com.mustache.bbs4.domain.dto.UserLoginRequest;
 import com.mustache.bbs4.domain.entity.User;
+import com.mustache.bbs4.domain.enums.UserRole;
 import com.mustache.bbs4.exception.AppException;
 import com.mustache.bbs4.exception.ErrorCode;
 import com.mustache.bbs4.repository.UserRepository;
@@ -39,5 +42,24 @@ public class UserService {
         User user=userRepository.findByUsername(username)
                 .orElseThrow(()-> new AppException(ErrorCode.NOTFOUND_USER_NAME, String.format("username %s가 존재하지 않습니다.", username)));
         return user;
+    }
+
+    public UserJoinResponse join(UserJoinRequest userJoinRequest) {
+        userRepository.findByUsername(userJoinRequest.getUsername())
+                .ifPresent(user->{
+                    throw new AppException(ErrorCode.DUPLICATED_USER_NAME, String.format("이미 존재하는 %s입니다.", userJoinRequest.getUsername()));
+                });
+        User user=User.builder()
+                .username(userJoinRequest.getUsername())
+                .password(userJoinRequest.getPassword())
+                .role(UserRole.USER)
+                .build();
+
+        User savedUser = userRepository.save(user);
+
+        return UserJoinResponse.builder()
+                .username(savedUser.getUsername())
+                .message("회원가입 성공")
+                .build();
     }
 }

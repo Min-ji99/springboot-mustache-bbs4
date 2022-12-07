@@ -27,8 +27,8 @@ public class SecurityConfiguration {
                 .csrf().disable()
                 .cors().and()
                 .authorizeRequests()
-                .antMatchers("/api/v1/users/join", "/api/v1/users/login").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/v1/**").authenticated()
+                .antMatchers("/api/v1/users/join", "/api/v1/users/login").permitAll() //해당 url 항상 허용
+                .antMatchers(HttpMethod.POST, "/api/**").authenticated() //해당 url로 POST 요청 시 인증된 경우만 허용
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

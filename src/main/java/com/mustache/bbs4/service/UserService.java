@@ -49,11 +49,8 @@ public class UserService {
                 .ifPresent(user->{
                     throw new AppException(ErrorCode.DUPLICATED_USER_NAME, String.format("이미 존재하는 %s입니다.", userJoinRequest.getUsername()));
                 });
-        User user=User.builder()
-                .username(userJoinRequest.getUsername())
-                .password(userJoinRequest.getPassword())
-                .role(UserRole.USER)
-                .build();
+        String encodingPassword= encoder.encode(userJoinRequest.getPassword());
+        User user = userJoinRequest.toEntity(encodingPassword);
 
         User savedUser = userRepository.save(user);
 
